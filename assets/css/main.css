@@ -14014,14 +14014,60 @@ only screen and (min-width: 576px) and (max-width: 767px),
 }
 
 
+
 /* ==========================================================================
    28. Responsive Hero & Mobile Overlay (Ragged Edge Style)
    ========================================================================== */
 
+@font-face {
+  font-family: 'Grit-Regular';
+  src: url('../fonts/Grit-Regular.woff2') format('woff2'),
+       url('../fonts/Grit-Regular.woff') format('woff'),
+       url('../fonts/Grit-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.td-hero-area {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background: #000;
+}
+
+.td-hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.td-hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(1.2) contrast(1.3) saturate(1.7); /* Shining, colorful, and high-contrast look */
+  transition: none !important;
+}
+
+.td-hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
 /* Fluid Typography for DEXZE Text */
 .td-hero-dexze-text {
-  font-family: var(--td-ff-syne);
-  font-weight: 800;
+  position: relative;
+  display: inline-block;
+  font-family: 'Grit-Regular', serif; /* Custom font as requested */
+  font-weight: normal; /* Grit usually defines weights in the family name */
   color: var(--td-common-white);
   line-height: 0.9;
   letter-spacing: -0.04em;
@@ -14029,10 +14075,22 @@ only screen and (min-width: 576px) and (max-width: 767px),
   user-select: none;
   pointer-events: none;
   margin: 0;
-  /* Dynamic font size: 80px on 320px screen -> 250px on 1920px screen */
   font-size: clamp(60px, 15vw, 250px);
-  display: inline-block;
-  vertical-align: middle;
+  z-index: 2;
+}
+
+.td-hero-dexze-text::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 260px;
+  height: 260px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  filter: blur(40px);
 }
 
 .td-hero-title-wrapper {
@@ -14040,10 +14098,13 @@ only screen and (min-width: 576px) and (max-width: 767px),
   align-items: center;
   justify-content: center;
   gap: 20px;
+  pointer-events: auto;
 }
 
 /* Nav Toggle Button (+) */
 .td-hero-nav-toggle {
+  position: relative;
+  z-index: 10;
   width: clamp(40px, 6vw, 80px);
   height: clamp(40px, 6vw, 80px);
   border-radius: 50%;
@@ -14052,7 +14113,6 @@ only screen and (min-width: 576px) and (max-width: 767px),
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: #fff;
   display: none;
-  /* Hidden by default on desktop */
   align-items: center;
   justify-content: center;
   cursor: pointer;
@@ -14081,7 +14141,6 @@ only screen and (min-width: 576px) and (max-width: 767px),
   width: 100%;
   height: 100vh;
   background: #c5d2b7;
-  /* Light green-grey as in image */
   z-index: 9999;
   display: flex;
   flex-direction: column;
@@ -14093,6 +14152,55 @@ only screen and (min-width: 576px) and (max-width: 767px),
 
 .td-mobile-overlay.active {
   transform: translateY(0);
+}
+
+/* Mobile Fixes (User Exact Ask) */
+@media (max-width: 991px) {
+  .pill-navbar-wrap {
+    display: none !important;
+  }
+  .td-hero-nav-toggle {
+    display: flex;
+  }
+  .td-hero-video {
+    object-position: center 30% !important; /* Move video focus point up on mobile */
+  }
+}
+
+/* 425px */
+@media (max-width: 425px) {
+  .td-hero-dexze-text {
+    font-size: 48px;
+  }
+
+  .td-hero-dexze-text::before {
+    width: 180px;
+    height: 180px;
+  }
+}
+
+/* 375px */
+@media (max-width: 375px) {
+  .td-hero-dexze-text {
+    font-size: 42px;
+  }
+
+  .td-hero-dexze-text::before {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* 320px */
+@media (max-width: 320px) {
+  .td-hero-dexze-text {
+    font-size: 36px;
+  }
+
+  .td-hero-dexze-text::before {
+    width: 130px;
+    height: 130px;
+  }
 }
 
 .td-mobile-overlay-header {
@@ -14107,110 +14215,42 @@ only screen and (min-width: 576px) and (max-width: 767px),
   font-weight: 800;
   font-size: 32px;
   letter-spacing: -2px;
-  color: #000;
-  margin: 0;
+  color: #111;
 }
 
 .td-mobile-overlay-close {
-  font-size: 40px;
-  color: #000;
   background: none;
   border: none;
+  font-size: 40px;
   cursor: pointer;
+  color: #111;
 }
 
 .td-mobile-overlay-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 15px;
+  align-items: center;
 }
 
 .td-overlay-link {
   display: inline-block;
-  padding: 20px 60px;
+  padding: 18px 40px;
   background: #dfe6d5;
-  border-radius: 100px;
-  color: #000;
-  font-family: var(--td-ff-dm-sans);
-  font-size: 24px;
-  font-weight: 500;
+  color: #111;
+  border-radius: 50px;
   text-decoration: none;
-  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 20px;
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 .td-overlay-link.active {
   background: #111;
   color: #fff;
-}
-
-.td-overlay-link:hover {
-  background: #111;
-  color: #fff;
-  transform: translateY(-5px);
-}
-
-/* Responsiveness Toggle */
-@media (max-width: 991px) {
-  .pill-navbar-wrap {
-    display: none !important;
-  }
-
-  .td-hero-nav-toggle {
-    display: flex;
-  }
-
-  .td-hero-title-wrapper {
-    gap: 10px;
-  }
-
-  /* Centering Fix for Mobile */
-  .td-hero-area .row {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .td-hero-content {
-    transform: translateY(-10px);
-    /* Moved even higher up for SM devices */
-  }
-
-  /* Shifting video up further as requested */
-  .td-hero-video {
-    object-position: center 30% !important;
-    /* Move video focus point higher up */
-  }
-}
-
-@media (max-width: 480px) {
-  .td-mobile-overlay {
-    padding: 30px 20px;
-  }
-
-  .td-overlay-link {
-    font-size: 20px;
-    padding: 15px 40px;
-  }
-
-  /* Specific override for very small devices */
-  .td-hero-dexze-text {
-    font-size: clamp(50px, 20vw, 80px);
-  }
-
-  .td-hero-content {
-    transform: translateY(-150px);
-    /* Maximum lift for very small screens */
-  }
-}
-
-/* Ensure no transitions clash with JS parallax */
-.td-hero-video {
-  transition: none !important;
 }
 
 /* Sticky Navbar fix for desktop */
