@@ -14013,4 +14013,213 @@ only screen and (min-width: 576px) and (max-width: 767px),
   }
 }
 
+
+/* ==========================================================================
+   28. Responsive Hero & Mobile Overlay (Ragged Edge Style)
+   ========================================================================== */
+
+/* Fluid Typography for DEXZE Text */
+.td-hero-dexze-text {
+  font-family: var(--td-ff-syne);
+  font-weight: 800;
+  color: var(--td-common-white);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  user-select: none;
+  pointer-events: none;
+  margin: 0;
+  /* Dynamic font size: 80px on 320px screen -> 250px on 1920px screen */
+  font-size: clamp(60px, 15vw, 250px);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.td-hero-title-wrapper {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Nav Toggle Button (+) */
+.td-hero-nav-toggle {
+  width: clamp(40px, 6vw, 80px);
+  height: clamp(40px, 6vw, 80px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  display: none;
+  /* Hidden by default on desktop */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  padding: 0;
+}
+
+.td-hero-nav-toggle:hover {
+  background: #fff;
+  color: #000;
+  transform: scale(1.1);
+}
+
+.toggle-icon {
+  font-size: clamp(24px, 4vw, 40px);
+  line-height: 1;
+  font-weight: 300;
+  margin-top: -2px;
+}
+
+/* Mobile Overlay Menu */
+.td-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #c5d2b7;
+  /* Light green-grey as in image */
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  transform: translateY(-100%);
+  transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  overflow-y: auto;
+}
+
+.td-mobile-overlay.active {
+  transform: translateY(0);
+}
+
+.td-mobile-overlay-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.td-overlay-logo {
+  font-family: var(--td-ff-syne);
+  font-weight: 800;
+  font-size: 32px;
+  letter-spacing: -2px;
+  color: #000;
+  margin: 0;
+}
+
+.td-mobile-overlay-close {
+  font-size: 40px;
+  color: #000;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.td-mobile-overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.td-overlay-link {
+  display: inline-block;
+  padding: 20px 60px;
+  background: #dfe6d5;
+  border-radius: 100px;
+  color: #000;
+  font-family: var(--td-ff-dm-sans);
+  font-size: 24px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+}
+
+.td-overlay-link.active {
+  background: #111;
+  color: #fff;
+}
+
+.td-overlay-link:hover {
+  background: #111;
+  color: #fff;
+  transform: translateY(-5px);
+}
+
+/* Responsiveness Toggle */
+@media (max-width: 991px) {
+  .pill-navbar-wrap {
+    display: none !important;
+  }
+
+  .td-hero-nav-toggle {
+    display: flex;
+  }
+
+  .td-hero-title-wrapper {
+    gap: 10px;
+  }
+
+  /* Centering Fix for Mobile */
+  .td-hero-area .row {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .td-hero-content {
+    transform: translateY(-10px);
+    /* Moved even higher up for SM devices */
+  }
+
+  /* Shifting video up further as requested */
+  .td-hero-video {
+    object-position: center 30% !important;
+    /* Move video focus point higher up */
+  }
+}
+
+@media (max-width: 480px) {
+  .td-mobile-overlay {
+    padding: 30px 20px;
+  }
+
+  .td-overlay-link {
+    font-size: 20px;
+    padding: 15px 40px;
+  }
+
+  /* Specific override for very small devices */
+  .td-hero-dexze-text {
+    font-size: clamp(50px, 20vw, 80px);
+  }
+
+  .td-hero-content {
+    transform: translateY(-150px);
+    /* Maximum lift for very small screens */
+  }
+}
+
+/* Ensure no transitions clash with JS parallax */
+.td-hero-video {
+  transition: none !important;
+}
+
+/* Sticky Navbar fix for desktop */
+.pill-navbar-wrap.is-sticky .pill-navbar {
+  background: rgba(10, 20, 30, 0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 100px;
+  padding: 10px 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /*# sourceMappingURL=main.css.map */

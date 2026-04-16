@@ -96,9 +96,28 @@
                         <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
                             <div class="col-12">
                                 <div class="td-hero-content">
-                                    <div class="td-hero-title text-center  wow fadeInUp" data-wow-delay=".5s"
+                                    <div class="td-hero-title-wrapper text-center wow fadeInUp" data-wow-delay=".5s"
                                         data-wow-duration="1s">
                                         <h1 class="td-hero-dexze-text">DEXZE</h1>
+                                        <button class="td-hero-nav-toggle" id="heroNavToggle">
+                                            <span class="toggle-icon">+</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Mobile Overlay Menu -->
+                                <div class="td-mobile-overlay" id="mobileOverlay">
+                                    <div class="td-mobile-overlay-header">
+                                        <h2 class="td-overlay-logo">DEXZE</h2>
+                                        <button class="td-mobile-overlay-close" id="overlayClose">×</button>
+                                    </div>
+                                    <div class="td-mobile-overlay-content">
+                                        <a href="index.html" class="td-overlay-link active">Home</a>
+                                        <a href="about.html" class="td-overlay-link">Partnerships</a>
+                                        <a href="service.html" class="td-overlay-link">Approach</a>
+                                        <a href="work.html" class="pill-link">Happenings</a>
+                                        <a href="team.html" class="td-overlay-link">Join</a>
+                                        <a href="contact.html" class="td-overlay-link">Contact</a>
                                     </div>
                                 </div>
                             </div>
@@ -840,6 +859,34 @@
                     onLeaveBack: () => pillNavbar.classList.remove('is-sticky'),
                 });
             }
+
+            // ========== Mobile Overlay Menu Logic ==========
+            const toggleBtn = document.getElementById('heroNavToggle');
+            const closeBtn = document.getElementById('overlayClose');
+            const mobileOverlay = document.getElementById('mobileOverlay');
+
+            if (toggleBtn && mobileOverlay) {
+                toggleBtn.addEventListener('click', () => {
+                    mobileOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                });
+            }
+
+            if (closeBtn && mobileOverlay) {
+                closeBtn.addEventListener('click', () => {
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto'; // Restore scrolling
+                });
+            }
+
+            // Close overlay on link click
+            const overlayLinks = document.querySelectorAll('.td-overlay-link');
+            overlayLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            });
         });
     </script>
 </body>
